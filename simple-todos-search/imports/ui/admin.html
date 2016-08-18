@@ -1,0 +1,27 @@
+<template name="adminPanel">
+  <div class="list_users">
+    <ul>
+
+      {{#each users}}
+      <li>
+          <a href="/@{{username}}">{{username}}</a>
+          {{#if isInRole 'admin'}} I am an Admin role{{/if}}
+
+     un:{{username}} | created:{{createdAt}} | email:{{address}}  | id:{{_id}}
+      </li>
+ {{/each}}
+    </ul>
+
+    <ol>
+
+        <!-- Iterate on all Objects fetched by the Helper Class-->
+        <li>
+            <strong>Username:</strong>
+
+        </li>
+
+
+    </ol>
+  </div>
+
+</template>

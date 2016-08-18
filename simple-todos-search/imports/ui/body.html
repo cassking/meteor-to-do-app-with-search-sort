@@ -1,0 +1,165 @@
+<body>
+  <div class="testadmin">
+
+    {{> adminPanel }}
+  </div>
+    <div class="main">
+        <div class="container">
+            <div class="search-wrapper container-fluid">
+
+                <div class="search-container">
+                    {{#if currentUser }}
+                     {{> search}}
+                     {{else}}
+                    <p>You must be <strong>logged in</strong> to search tasks</p>
+                    {{/if}}
+                </div>
+
+
+            </div>
+            <div class="todo-wrapper container-fluid">
+                <header>
+                    <h2>Tasks list</h2>
+                    <p>You must be <strong>logged in</strong> to add tasks</p>
+
+                    {{> loginButtons }} {{> dashboard }}
+                      {{#if currentUser }}
+                       {{> addTask }}
+
+
+
+                    <label class="hide-completed">
+                        <input type="checkbox" /> Hide completed tasks
+                    </label>
+
+                    <form class="new-task form-wrapper cf">
+                        <input type="text" name="text" placeholder="Type to add new tasks and hit the ENTER key" />
+                    </form>
+
+                     {{else}}
+
+                   {{/if}}
+                </header>
+
+            </div>
+            <div class="tasks-wrapper container-fluid">
+
+                <ul>
+                    {{#each tasks}} {{> task}} {{/each }}
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+
+<template name="addTask">
+
+</template>
+
+<template name="search">
+    <div class="form-group">
+        <form id="searchform">
+            <input class="form-control" type="text" data-action="search" id="searchValue" placeholder="Enter search terms here." />
+            <button id="search" class=" btn   btn-small  btn-primary ">Search</button>
+        </form>
+        <div class="sort-wrapper">
+            <form class="form-inline">
+                <div class="btn-group" data-toggle="buttons-radio">
+                    <button id="sort_by_name" class="btn btn-small btn-primary btn-fill " type="button">Sort by Name</button>
+                    <button id="sort_by_month" class="btn btn-small btn-info btn-fill " type="button">Sort by Month</button>
+                    <button id="results" class="btn btn-small btn-info btn-fill hide-results " type="button">Hide</button>
+
+                </div>
+                <button class="reset btn btn-danger btn-small clear-search" type="button"><i class="icon-refresh icon-white"></i> Reset</button>
+
+                <a class="btn btn-link btn-small" href="#"><i class="icon-question-sign"></i> Help</a>
+            </form>
+        </div>
+
+    </div>
+    <div class="results">
+      <ol>
+          {{#each results}}
+          <!-- Iterate on all Objects fetched by the Helper Class-->
+          <li>
+              <strong>Author:</strong> {{username}}
+              <strong>Task text:</strong> {{text}}
+              <br />
+              <strong>Date:</strong> {{createdAt}}
+          </li>
+
+          {{else}}
+          <p >
+            <p class="message">
+
+            </p>
+          Sorry, no results!
+          </p>
+          {{/each}}
+      </ol>
+    </div>
+
+</template>
+<template name="register">
+
+    <form class="register">
+        <label class="control-label" for="registerEmail">Email</label>
+        <input type="email" class="form-control" name="registerEmail" placeholder="Email" />
+
+        <label class="control-label" for="registerPassword">Password</label>
+        <input type="password" class="form-control" name="registerPassword" placeholder="Password" />
+        <br />
+        <button id="register" class=" btn   btn-small  btn-primary ">Register</button>
+
+    </form>
+
+</template>
+
+<template name="login">
+    <form class="login">
+        <label class="control-label" for="registerEmail">Email</label>
+        <input class="form-control" type="email" name="loginEmail" placeholder="Email" />
+        <label class="control-label" for="registerPassword">Password</label>
+        <input class="form-control" type="password" name="loginPassword" placeholder="Password" />
+        <br />
+        <button id="login" class=" btn   btn-small  btn-primary ">Login</button>
+    </form>
+</template>
+<template name="dashboard">
+    <!-- {{#if currentUser }} -->
+    <p>
+        You are logged in.
+    </p>
+    <p><a href="#" class="logout">Logout</a></p>
+    <!-- {{else}} -->
+    <p>
+        Please register or sign in.
+    </p>
+    <p><a href="#" class="login-dashboard">Login</a></p>
+
+    {{> modal }}
+    <!-- {{/if}} -->
+</template>
+<template name="modal">
+    <div class="modal " id="modal">
+        <div class="modal-dialog  modal-sm">
+            <div class="modal-content accounts-dialog">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+          Login or Register
+        </h4>
+                </div>
+                <div class="modal-body">
+                    {{> register }} {{> login }}
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>
